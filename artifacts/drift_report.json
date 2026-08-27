@@ -1,0 +1,101 @@
+{
+  "reference_size": 5625,
+  "current_batch_size": 422,
+  "numerical_feature_drift": {
+    "tenure": {
+      "ks_statistic": 0.263,
+      "ks_p_value": 0.0,
+      "psi": 0.6106,
+      "drift_detected": true
+    },
+    "MonthlyCharges": {
+      "ks_statistic": 0.1785,
+      "ks_p_value": 0.0,
+      "psi": 0.5636,
+      "drift_detected": true
+    },
+    "TotalCharges": {
+      "ks_statistic": 0.0395,
+      "ks_p_value": 0.5591,
+      "psi": 0.0124,
+      "drift_detected": false
+    }
+  },
+  "categorical_feature_drift": {
+    "gender": {
+      "psi": 0.0022,
+      "drift_detected": false
+    },
+    "SeniorCitizen": {
+      "psi": 0.003,
+      "drift_detected": false
+    },
+    "Partner": {
+      "psi": 0.0059,
+      "drift_detected": false
+    },
+    "Dependents": {
+      "psi": 0.0,
+      "drift_detected": false
+    },
+    "PhoneService": {
+      "psi": 0.0006,
+      "drift_detected": false
+    },
+    "MultipleLines": {
+      "psi": 0.0008,
+      "drift_detected": false
+    },
+    "InternetService": {
+      "psi": 0.0006,
+      "drift_detected": false
+    },
+    "OnlineSecurity": {
+      "psi": 0.0,
+      "drift_detected": false
+    },
+    "OnlineBackup": {
+      "psi": 0.0,
+      "drift_detected": false
+    },
+    "DeviceProtection": {
+      "psi": 0.0034,
+      "drift_detected": false
+    },
+    "TechSupport": {
+      "psi": 0.005,
+      "drift_detected": false
+    },
+    "StreamingTV": {
+      "psi": 0.0021,
+      "drift_detected": false
+    },
+    "StreamingMovies": {
+      "psi": 0.0005,
+      "drift_detected": false
+    },
+    "Contract": {
+      "psi": 0.0021,
+      "drift_detected": false
+    },
+    "PaperlessBilling": {
+      "psi": 0.0029,
+      "drift_detected": false
+    },
+    "PaymentMethod": {
+      "psi": 0.0039,
+      "drift_detected": false
+    }
+  },
+  "model_performance": {
+    "reference_accuracy": 0.8046,
+    "current_accuracy": 0.8128,
+    "accuracy_drop": -0.0082,
+    "reference_f1": 0.5996,
+    "current_f1": 0.6457,
+    "performance_drift_detected": false
+  },
+  "data_drift_detected": true,
+  "model_drift_detected": false,
+  "alert": true
+}

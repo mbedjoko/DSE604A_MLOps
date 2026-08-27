@@ -1,0 +1,1 @@
+{"timestamp": "2026-08-27T20:43:42.099589Z", "action": "rollback", "model_name": "Telco_Churn_Model", "failed_version": "3", "failed_version_f1": 0.0, "restored_version": "1", "restored_version_f1": 0.6079545454545454, "reason": "Production f1_score 0.0 fell below minimum threshold 0.55"}

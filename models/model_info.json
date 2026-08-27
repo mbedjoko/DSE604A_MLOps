@@ -1,0 +1,16 @@
+{
+  "model_name": "Telco_Churn_Model",
+  "version": "1",
+  "stage": "Production",
+  "run_id": "fa82bcdaaa524dac833184130a8814b5",
+  "metrics": {
+    "f1_score": 0.6079545454545454,
+    "latency_ms": 7.929630279541016,
+    "model_size_mb": 0.007172584533691406,
+    "fairness_disparity": 0.03208556149732622
+  },
+  "params": {
+    "model_type": "logistic_regression",
+    "max_iter": "1000"
+  }
+}

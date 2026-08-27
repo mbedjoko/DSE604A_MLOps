@@ -69,8 +69,37 @@ print("Churn rate (train):", y_train.mean())
 print("Churn rate (test):", y_test.mean())
 
 # ---------------- MLflow setup ----------------
-mlflow.set_tracking_uri("http://localhost:5000")
-mlflow.set_experiment("Telco_Churn_Promotion")
+# Allow overriding tracking URI via environment; default to a local file store
+tracking_uri = os.environ.get("MLFLOW_TRACKING_URI")
+if tracking_uri:
+    # normalize file: URIs so absolute paths become file:///absolute/path
+    if tracking_uri.startswith("file:") and not tracking_uri.startswith("file://"):
+        path = tracking_uri[len("file:"):]
+        mlflow.set_tracking_uri(f"file://{path}")
+    else:
+        mlflow.set_tracking_uri(tracking_uri)
+else:
+    local_store = os.path.abspath("mlruns")
+    os.makedirs(local_store, exist_ok=True)
+
+    # prefer explicit file:// scheme for absolute paths
+    mlflow.set_tracking_uri(f"file://{local_store}")
+
+print("ENV MLFLOW_TRACKING_URI:", os.environ.get("MLFLOW_TRACKING_URI"))
+print("Selected tracking URI (before set_experiment):", mlflow.get_tracking_uri())
+
+# Try to set/get the experiment; if the tracking server is unreachable,
+# fall back to a local file-based tracking URI under the working dir.
+try:
+    mlflow.set_experiment("Telco_Churn_Promotion")
+except Exception as e:
+    print("Warning: failed to set experiment at", mlflow.get_tracking_uri(), "->", e)
+    local_store = os.path.abspath("mlruns")
+    os.makedirs(local_store, exist_ok=True)
+    mlflow.set_tracking_uri(f"file://{local_store}")
+    print("Falling back to file-based tracking URI:", mlflow.get_tracking_uri())
+    mlflow.set_experiment("Telco_Churn_Promotion")
+
 client = MlflowClient()
 
 promotion_criteria = {
@@ -81,6 +110,7 @@ promotion_criteria = {
 }
 
 print("MLflow tracking URI set. Promotion criteria:", promotion_criteria)
+print("Active MLflow tracking URI:", mlflow.get_tracking_uri())
 
 # ---------------- Evaluation helper ----------------
 def evaluate_model(model, X_test, y_test, groups_test, criteria):
@@ -230,3 +260,4 @@ if all(criteria_checks.values()):
     print("Model promoted to Production.")
 else:
     print("Best model does not meet all promotion criteria.")
+    
